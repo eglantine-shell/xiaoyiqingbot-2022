@@ -7,6 +7,7 @@ import urllib
 import urllib2
 import json
 import StringIO
+# import musicList
 
 # standard app engine imports
 import logging
@@ -72,6 +73,8 @@ def sendWeather (chat_id, weather):
     resp = '现在的体感温度是' + str(temp) + '度，' + main + '：' + description
     sendTextMessage(chat_id, resp)
 
+# command: forcast tomorrow's weather
+
 def forecastWeather (chat_id, weather):
     tempMax = weather.get('daily')[0].get('temp').get('max')
     tempMin = weather.get('daily')[0].get('temp').get('min')
@@ -80,3 +83,17 @@ def forecastWeather (chat_id, weather):
     description = weather.get('daily')[0].get('weather')[0].get('description')
     resp = '明日气温' + str(tempMin) + '-' + str(tempMax) + '度，白天体感温度' + str(tempFeel) + '度，' + main + '：' + description
     sendTextMessage(chat_id, resp)
+
+# command: random song
+'''
+def randomSong (chat_id, lid):
+    # musicList 建数据库，爬lid，返回ran的歌名和url
+    db = musicList.DB()
+    db.createDB()
+    db.addSong(lid)
+    ran = db.randomSong()
+    songURL = 'http://music.163.com/song/media/outer/url?id='+ran[1]+'.mp3'
+    resp = '或许……《'+ran[3]+'》？'+songURL
+    db.disconnection()
+    sendTextMessage(chat_id, resp)
+'''
